@@ -1,0 +1,675 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Material 2: Setting up Development Environment for Flutter</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0e4df19e-03f9-4463-ad68-68f00cf903dd" class="page sans"><header><img class="page-cover-image" src="https://images.unsplash.com/photo-1595776613215-fe04b78de7d0?ixlib=rb-4.0.3&amp;q=85&amp;fm=jpg&amp;crop=entropy&amp;cs=srgb" style="object-position:center 50%"/><h1 class="page-title">Material 2: <strong><strong>Setting up Development Environment for Flutter</strong></strong></h1><p class="page-description"></p><table class="properties"><tbody><tr class="property-row property-row-created_by"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>Created by</th><td><span class="user"><img src="https://lh3.googleusercontent.com/a-/AOh14Gi-4ZKBhgnO6pMJ2LsNEDpit_VuidliucSDsoM-=s100" class="icon user-icon"/>Azraf Al Monzim</span></td></tr><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Created time</th><td><time>@June 10, 2023 12:44 PM</time></td></tr><tr class="property-row property-row-last_edited_by"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedBy"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 10.4229C6.05176 10.4229 4.54785 11.1133 3.83008 11.9131C2.90039 10.9082 2.33301 9.55469 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 9.55469 13.1064 10.9082 12.1699 11.9131C11.4521 11.1133 9.94824 10.4229 8 10.4229ZM8 9.30176C9.32617 9.30859 10.3516 8.18066 10.3516 6.71094C10.3516 5.33008 9.31934 4.18164 8 4.18164C6.6875 4.18164 5.6416 5.33008 5.64844 6.71094C5.65527 8.18066 6.68066 9.28809 8 9.30176Z"></path></svg></span>Last edited by</th><td><span class="user"><img src="https://lh3.googleusercontent.com/a-/AOh14Gi-4ZKBhgnO6pMJ2LsNEDpit_VuidliucSDsoM-=s100" class="icon user-icon"/>Azraf Al Monzim</span></td></tr><tr class="property-row property-row-last_edited_time"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M8 15.126C11.8623 15.126 15.0615 11.9336 15.0615 8.06445C15.0615 4.20215 11.8623 1.00293 7.99316 1.00293C4.13086 1.00293 0.938477 4.20215 0.938477 8.06445C0.938477 11.9336 4.1377 15.126 8 15.126ZM8 13.7383C4.85547 13.7383 2.33301 11.209 2.33301 8.06445C2.33301 4.91992 4.84863 2.39746 7.99316 2.39746C11.1377 2.39746 13.6738 4.91992 13.6738 8.06445C13.6738 11.209 11.1445 13.7383 8 13.7383ZM4.54102 8.91211H7.99316C8.30078 8.91211 8.54004 8.67285 8.54004 8.37207V3.8877C8.54004 3.58691 8.30078 3.34766 7.99316 3.34766C7.69238 3.34766 7.45312 3.58691 7.45312 3.8877V7.83203H4.54102C4.2334 7.83203 4.00098 8.06445 4.00098 8.37207C4.00098 8.67285 4.2334 8.91211 4.54102 8.91211Z"></path></svg></span>Last edited time</th><td><time>@June 10, 2023 5:27 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 16 16" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M1.91602 4.83789C2.44238 4.83789 2.87305 4.40723 2.87305 3.87402C2.87305 3.34766 2.44238 2.91699 1.91602 2.91699C1.38281 2.91699 0.952148 3.34766 0.952148 3.87402C0.952148 4.40723 1.38281 4.83789 1.91602 4.83789ZM5.1084 4.52344H14.3984C14.7607 4.52344 15.0479 4.23633 15.0479 3.87402C15.0479 3.51172 14.7607 3.22461 14.3984 3.22461H5.1084C4.74609 3.22461 4.45898 3.51172 4.45898 3.87402C4.45898 4.23633 4.74609 4.52344 5.1084 4.52344ZM1.91602 9.03516C2.44238 9.03516 2.87305 8.60449 2.87305 8.07129C2.87305 7.54492 2.44238 7.11426 1.91602 7.11426C1.38281 7.11426 0.952148 7.54492 0.952148 8.07129C0.952148 8.60449 1.38281 9.03516 1.91602 9.03516ZM5.1084 8.7207H14.3984C14.7607 8.7207 15.0479 8.43359 15.0479 8.07129C15.0479 7.70898 14.7607 7.42188 14.3984 7.42188H5.1084C4.74609 7.42188 4.45898 7.70898 4.45898 8.07129C4.45898 8.43359 4.74609 8.7207 5.1084 8.7207ZM1.91602 13.2324C2.44238 13.2324 2.87305 12.8018 2.87305 12.2686C2.87305 11.7422 2.44238 11.3115 1.91602 11.3115C1.38281 11.3115 0.952148 11.7422 0.952148 12.2686C0.952148 12.8018 1.38281 13.2324 1.91602 13.2324ZM5.1084 12.918H14.3984C14.7607 12.918 15.0479 12.6309 15.0479 12.2686C15.0479 11.9062 14.7607 11.6191 14.3984 11.6191H5.1084C4.74609 11.6191 4.45898 11.9062 4.45898 12.2686C4.45898 12.6309 4.74609 12.918 5.1084 12.918Z"></path></svg></span>Tags</th><td><span class="selected-value select-value-color-orange">Guides</span></td></tr></tbody></table></header><div class="page-body"><h2 id="17444147-d041-42f1-b032-a3412388d845" class=""><strong>Short Summary</strong></h2><p id="9ca60248-382f-466a-a635-76237c554bdc" class="">This blog provides a detailed guide on setting up a development environment for Flutter. From installing Git, GitHub CLI, OpenJDK, Flutter SDK, Visual Studio Code, and Android Studio, this comprehensive tutorial will help you set up all the necessary tools for Flutter development.</p><h2 id="03a124e9-da64-4def-bfda-e5d6f68ff867" class=""><strong>Details Blog</strong></h2><p id="28c9bd33-7ddd-4d6a-9388-51d903c20cd1" class="">Welcome to our guide on setting up a development environment for Flutter! In this tutorial, we will walk you through the step-by-step process of installing and configuring all the required tools to start building Flutter applications.</p><h2 id="3808b18a-2592-469a-808a-1ce4ea662461" class=""><strong>Prerequisites</strong></h2><p id="fb39b1a4-9b04-4fd6-b142-7247890d39f6" class="">Before we dive into the setup process, make sure you have the following prerequisites installed on your system:</p><ul id="159dc0ed-342d-43e4-a410-1b35a3e9da61" class="bulleted-list"><li style="list-style-type:disc">Operating System: Windows (10 or later), macOS (Mojave or later), or Linux (64-bit)</li></ul><ul id="0b14eca0-25e5-41b8-a6ef-271eeeb80d8e" class="bulleted-list"><li style="list-style-type:disc">Disk Space: At least 6 GB  (excluding IDEs and additional dependencies)</li></ul><ul id="4ec3754f-0fd8-45fe-9588-63fe5076b7f6" class="bulleted-list"><li style="list-style-type:disc">Tools: Git (version 2.x.x or later) and a text editor of your choice</li></ul><ul id="56521829-6806-4406-a201-ccc5d5d7366c" class="bulleted-list"><li style="list-style-type:disc">JDK: JDK version 11+</li></ul><h2 id="2957d36c-d270-4e3e-9fc8-bf054a5a05cc" class=""><strong>Step 1: Install Git</strong></h2><ol type="1" id="a73c8757-60c2-4310-ab5b-fa7223cb210d" class="numbered-list" start="1"><li>Download Git from the official website: <a href="https://git-scm.com/downloads"><strong>https://git-scm.com/downloads</strong></a>.</li></ol><ol type="1" id="11ac85f6-ac9b-4ee8-82ca-3ae4e799bdfc" class="numbered-list" start="2"><li>Run the installer and follow the on-screen instructions to complete the installation. [Install with Default Settings]</li></ol><figure id="8c4f3ca8-d9a2-42b2-b597-784fe77b19af" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled.png"><img style="width:1528px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled.png"/></a></figure><h2 id="ad47a2a8-4797-4371-a51b-c3ec03ceda2b" class=""><strong>Step 2: Install GitHub CLI</strong></h2><ol type="1" id="da77aa44-f0ed-43d5-bfe6-856a5dc5e70a" class="numbered-list" start="1"><li>Visit the GitHub CLI repository on GitHub: <a href="https://cli.github.com/">https://cli.github.com</a></li></ol><ol type="1" id="592ca029-7c17-4e82-91a5-953043b33cf7" class="numbered-list" start="2"><li>Download and intall with default settings</li></ol><figure id="2c64e141-cf8f-4bba-a140-8e9ee06de18e" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%201.png"><img style="width:2870px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%201.png"/></a></figure><h2 id="4c963e6f-4d92-44a4-b2ff-799bb0032143" class=""><strong>Step 3: Install OpenJDK</strong></h2><ol type="1" id="41dd7915-e154-4c32-a49a-377663384c6a" class="numbered-list" start="1"><li>Visit the AdoptOpenJDK website: <a href="https://learn.microsoft.com/en-us/java/openjdk/download">https://learn.microsoft.com/en-us/java/openjdk/download</a></li></ol><ol type="1" id="f1237ae7-6fc6-4a0e-925c-1faefcafc3a3" class="numbered-list" start="2"><li>Select your preferred version of OpenJDK and download the installer for your operating system.</li></ol><ol type="1" id="b7384fe6-9676-4b82-8356-16cb295fc93c" class="numbered-list" start="3"><li>Run the installer and follow the on-screen instructions to complete the installation.</li></ol><figure id="a65572ed-a423-4e45-947d-db262dd986af" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%202.png"><img style="width:1428px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%202.png"/></a></figure><h2 id="bb69b8a2-3d80-451f-8cd9-810e854632c8" class=""><strong>Step 4: Install Flutter SDK</strong></h2><ol type="1" id="372fc157-2fb7-4d30-a058-cf5d6c59a8d6" class="numbered-list" start="1"><li>Visit the official Flutter website at <a href="https://docs.flutter.dev/get-started/install/windows#windows-setup">https://docs.flutter.dev/get-started/install/windows#windows-setup</a> and click on the &quot;Get Started&quot; button.</li></ol><ol type="1" id="5b399306-879f-47d3-b6aa-4ef8e6a37589" class="numbered-list" start="2"><li>Download the Flutter SDK for your operating system.<figure id="dfc6b715-aaf6-4628-895d-4efb4ed32952" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%203.png"><img style="width:1846px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%203.png"/></a></figure></li></ol><ol type="1" id="1475e99f-da46-4b83-b2c2-79b535a2454f" class="numbered-list" start="3"><li>Extract the downloaded file to a location of your choice. For example, <code><strong>C:\src\flutter</strong></code> on Windows or <code><strong>/Users/your_username/flutter</strong></code> on macOS/Linux.<figure id="532c1862-9a5e-4cf7-a1e1-85e7b76b9971" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%204.png"><img src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%204.png"/></a></figure></li></ol><ol type="1" id="9bc17ddd-5357-4a33-9458-bb76b5598552" class="numbered-list" start="4"><li>Add the Flutter SDK&#x27;s <code><strong>bin</strong></code> directory to your system&#x27;s PATH variable. This step allows you to access Flutter commands from any directory in the command line.<ul id="540a97ff-4fc1-4615-877c-53da80489aa2" class="bulleted-list"><li style="list-style-type:disc">On Windows: Open the Environment Variables settings, find the &quot;Path&quot; variable, and append <code><strong>C:\src\flutter\bin</strong></code> to it.<figure id="956bdc17-a3c5-4afa-a43f-812a452ee785" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%205.png"><img style="width:964px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%205.png"/></a></figure><figure id="58b28a71-d495-48ba-a395-4f158dfedc62" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%206.png"><img style="width:1470px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%206.png"/></a></figure><figure id="1ad15654-49dd-4657-85a8-ca908943614a" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%207.png"><img style="width:1382px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%207.png"/></a></figure></li></ul><ul id="3eec51a0-a154-4112-b703-c092bad14161" class="bulleted-list"><li style="list-style-type:disc">On macOS/Linux: Open the terminal and run the following command, replacing <code><strong>your_username</strong></code> with your actual username:<pre id="3ed2be7d-dfb9-49da-b423-b2cc49a2b2ce" class="code code-wrap"><code>export PATH=&quot;$PATH:/Users/your_username/flutter/bin&quot;</code></pre></li></ul></li></ol><ol type="1" id="57a06945-f87e-45f8-b189-12b6744f3e80" class="numbered-list" start="5"><li>Verify the installation by opening a new terminal or command prompt and running <code><strong>flutter doctor</strong></code><strong>  </strong>. This command checks for any necessary dependencies and provides recommendations if anything is missing.<figure id="b0078ee0-bdfd-4b6a-b880-dd4b0d702366" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%208.png"><img style="width:2462px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%208.png"/></a></figure></li></ol><h2 id="a33a7282-3191-4e14-94d0-1f85ffbc19f1" class=""><strong>Step 5: Install Visual Studio Code</strong></h2><ol type="1" id="2623140c-447f-4664-a141-8fdb5289de2a" class="numbered-list" start="1"><li>Download Visual Studio Code from the official website: <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a><figure id="3540b3fe-d0cb-4be7-ac77-147ac76b39c0" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%209.png"><img style="width:2484px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%209.png"/></a></figure></li></ol><ol type="1" id="e74e4e4a-1c2a-49f2-b181-73bf048eb2fd" class="numbered-list" start="2"><li>Run the installer and follow the on-screen instructions to complete the installation.</li></ol><ol type="1" id="6eb105e1-a732-4bbe-ab84-c2e43eab4469" class="numbered-list" start="3"><li>Open Visual Studio Code and install the Flutter and Dart extensions by searching for them in the Extensions panel (Ctrl+Shift+X).<figure id="ade32f40-db1c-4342-9258-d289b2e3b783" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2010.png"><img style="width:2160px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2010.png"/></a></figure><figure id="a7a8a94e-db02-4e00-9630-ff14236ba3f7" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2011.png"><img style="width:2196px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2011.png"/></a></figure></li></ol><h2 id="c8eed73f-7f48-4804-a8b0-06a4c9969cc0" class=""><strong>Step 6: Install Android Studio</strong></h2><ol type="1" id="c9e793f7-47f7-4ca3-97af-efae806ebd60" class="numbered-list" start="1"><li>Download Android Studio from the official website: <a href="https://developer.android.com/studio"><strong>https://developer.android.com/studio</strong></a>.</li></ol><ol type="1" id="c6e9da45-1c76-45be-8b5d-5562e0e69a46" class="numbered-list" start="2"><li>Run the installer and follow the on-screen instructions to complete the installation.<figure id="d88991cc-d612-43ed-9654-c0cc9451a49d" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2012.png"><img style="width:2880px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2012.png"/></a></figure><figure id="db43fc5f-0101-4c99-8383-fe4d55d65238" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2013.png"><img style="width:1736px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2013.png"/></a></figure><figure id="5e97284c-b6f2-42ca-97b0-ebdae8972878" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2014.png"><img style="width:1424px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2014.png"/></a></figure><figure id="27c001f9-3cf3-4f06-9ce8-29ee6b11a2e3" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2015.png"><img style="width:2156px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2015.png"/></a></figure></li></ol><ol type="1" id="b2c654da-f486-45b6-a672-96db2a724bdf" class="numbered-list" start="3"><li>During the installation, make sure to select the Flutter and Dart plugins.</li></ol><ol type="1" id="cbd8099e-8d8a-42c0-9334-47456584e0ba" class="numbered-list" start="4"><li>Run this command <code>flutter doctor</code> </li></ol><ol type="1" id="843820de-6440-46b2-8385-b1cbe160c5a7" class="numbered-list" start="5"><li>Then accept run this command <code>flutter doctor --android-licenses</code><figure id="6763284a-eec4-4759-a49a-f55519c0ba84" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2016.png"><img style="width:2386px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2016.png"/></a></figure></li></ol><ol type="1" id="dc542384-fb1d-4f03-a47d-7b2e010f1384" class="numbered-list" start="6"><li>Then run this <code>flutter doctor</code>  again<figure id="636aa52f-67dc-4970-848f-4d1bd78dc4ee" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2017.png"><img style="width:2334px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2017.png"/></a></figure><p id="91dadc8f-55e0-489c-b1a5-c64da29c7be5" class="">
+</p></li></ol><h2 id="d990b07d-a924-4e1e-ade2-d88594c74533" class="">Step 6.1: Create a android Simulator</h2><ol type="1" id="3393f17f-1b67-4373-81a3-efeaf3aaff5b" class="numbered-list" start="1"><li>Open android Studio and open Virtual Device manager<figure id="a3686335-2f98-438c-849a-1514c12a4c96" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2018.png"><img style="width:1716px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2018.png"/></a></figure><figure id="2ce66a8a-c807-4f3c-b84b-8e6fa46e8f24" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2019.png"><img style="width:1736px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2019.png"/></a></figure><figure id="41cbaf0d-0859-4293-b8a7-d1bdcb10ee86" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2020.png"><img style="width:2114px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2020.png"/></a></figure><figure id="f60a9953-8009-4463-b7cb-908f193803cc" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2021.png"><img style="width:2084px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2021.png"/></a></figure><figure id="ed4b02ad-e999-40f1-b2bc-672bb4bcbd28" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2022.png"><img style="width:1678px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2022.png"/></a></figure></li></ol><h2 id="d3755350-e969-43ff-bfeb-316298dddd4a" class=""><strong>Step 7: Configure IDE</strong></h2><p id="0b94e06b-37f5-4c2e-9359-a4b4c9b54ca5" class="">After installing your preferred IDE, open it and configure it to work with Flutter:</p><ol type="1" id="944af726-6aa3-42a2-aa3b-ae6af61e7270" class="numbered-list" start="1"><li>Open the IDE&#x27;s settings/preferences and navigate to the Flutter section.</li></ol><ol type="1" id="005f93c2-0358-4d34-81be-04655113d077" class="numbered-list" start="2"><li>Set the Flutter SDK path to the location where you extracted the Flutter SDK in Step 1.</li></ol><ol type="1" id="2a63b092-ec4f-4713-8768-7f57705b2ced" class="numbered-list" start="3"><li>Apply the changes and restart the IDE for the settings to take effect.</li></ol><h2 id="5911aabe-16c4-482b-89d3-69b874b03f41" class=""><strong>Step 8: Create a New Flutter Project</strong></h2><p id="65dd1321-9d37-4f23-aad1-1053a593cd38" class="">Now that we have everything set up, let&#x27;s create a new Flutter project:</p><ol type="1" id="3ee37480-5938-4abc-8485-a21e73c5bf2e" class="numbered-list" start="1"><li>Open your terminal or command prompt and navigate to the directory where you want to create the project.</li></ol><ol type="1" id="d55c709f-ccd4-4018-9213-0e44d6b99586" class="numbered-list" start="2"><li>Run the following command to create a new Flutter project:Replace <code><strong>my_app</strong></code> with the desired name of your project.<pre id="b2956bf2-4aa4-48b5-9d49-60baa148b5af" class="code code-wrap"><code>flutter create my_app</code></pre></li></ol><h2 id="2c7cda2e-5f51-4542-bac4-e29adee22afc" class=""><strong>Step 9: Run Your First Flutter App</strong></h2><ol type="1" id="015a4026-46c0-41a4-96c8-c7d275e90dcc" class="numbered-list" start="1"><li>In your terminal or command prompt, navigate to the project directory (<code><strong>my_app</strong></code> in this example).</li></ol><ol type="1" id="822025d3-98b1-4e01-a64d-1975da11dcf3" class="numbered-list" start="2"><li>Connect an Android or iOS device to your computer or set up an emulator/simulator.</li></ol><ol type="1" id="1430ccaf-ab37-446c-aca0-16673c998570" class="numbered-list" start="3"><li>Run the following command to launch your app on the connected device/emulator:If everything is set up correctly, you should see your app running on the device/emulator.<pre id="7f06f722-5987-4ba7-b048-676e137b3b74" class="code code-wrap"><code>flutter run</code></pre></li></ol><figure id="d08fc1e4-3a9e-4aff-94c2-70ea949edea6" class="image"><a href="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2023.png"><img style="width:2880px" src="Material%202%20Setting%20up%20Development%20Environment%20for%20%200e4df19e03f94463ad6868f00cf903dd/Untitled%2023.png"/></a></figure><p id="efd7c390-8d50-4007-9490-fb7cf9fe9996" class="">Congratulations! You have successfully set up your development environment for Flutter and created your first Flutter app. Now you can start exploring Flutter&#x27;s rich set of features and building incredible cross-platform mobile applications.</p><p id="e712c607-c248-4dfc-afd0-7b0e13aa4f86" class="">Remember to refer to the official Flutter documentation and community resources for further learning and support on your Flutter development journey. Happy coding!</p><h2 id="37b61a47-ea14-4040-bbfc-9718609d837b" class=""><strong>Conclusion</strong></h2><p id="241bd69d-5ab3-4465-8e87-7fe665966642" class="">Congratulations! You have successfully set up your development environment for Flutter. You installed Git, GitHub CLI, OpenJDK, Flutter SDK, Visual Studio Code, and Android Studio, which are essential tools for Flutter development. You are now ready to create amazing cross-platform mobile applications using Flutter.</p><p id="bfec1352-9caf-4e28-bf3f-e62af3603798" class="">Remember to refer to the official Flutter documentation and community resources for further learning and support on your Flutter development journey. Happy coding!</p></div></article></body></html>
